@@ -12,7 +12,7 @@ test.describe('Sauce Demo E2E', () => {
 
     // Verify inventory page is visible
     await expect(page).toHaveURL(/.*inventory\.html/);
-    await expect(page.getByRole('heading', { name: 'Products' })).toBeVisible();
+    await expect(page.locator('#header_container [data-test="title"]')).toBeVisible();
 
     // Add first two products to cart
     const addButtons = page.getByRole('button', { name: /Add to cart/i });
@@ -20,8 +20,9 @@ test.describe('Sauce Demo E2E', () => {
     await addButtons.nth(1).click();
 
     // Go to cart
-    await page.getByRole('link', { name: /shopping cart/i }).click();
+    await page.locator('[data-test="shopping-cart-link"]').click();
     await expect(page).toHaveURL(/.*cart\.html/);
+    await expect(page.locator('.header_secondary_container .title').filter({ hasText: 'Your Cart' })).toBeVisible();
 
     // Proceed to checkout
     await page.getByRole('button', { name: 'Checkout' }).click();
