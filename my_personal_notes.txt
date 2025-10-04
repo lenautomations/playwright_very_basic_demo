@@ -1,0 +1,6 @@
+Github
+
+git init
+git add .
+git commit -m "blah blah"
+git push -u origin main
